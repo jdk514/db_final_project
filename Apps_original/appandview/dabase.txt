@@ -1,0 +1,49 @@
+CREATE TABLE `Recommendation` (
+  `Recid` int(8) NOT NULL auto_increment,
+  `studentid` int(8) default NULL,
+  `Authorname` varchar(64) NOT NULL default '',
+  `Authortitle` varchar(30) default NULL,
+  `Authoremail` varchar(64) NOT NULL default '',
+  `Content` text NOT NULL,
+  `Affiliation` varchar(200) default NULL,
+  `rate` varchar(250) default NULL,
+  PRIMARY KEY  (`Recid`),
+  KEY `studentid` (`studentid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=133 ;
+
+CREATE TABLE `Transcript` (
+  `studentid` int(8) NOT NULL default '0',
+  `undergpa` decimal(4,2) NOT NULL default '0.00',
+  `gre` int(4) default NULL,
+  `greverbal` int(4) default NULL,
+  `greana` int(4) default NULL,
+  `grequan` int(4) default NULL,
+  `tofel` int(3) default NULL,
+  PRIMARY KEY  (`studentid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Applications` (
+  `applicationid` int(8) NOT NULL default '0',
+  `aoi` varchar(250) default NULL,
+  `studentid` int(8) default NULL,
+  `dsought` varchar(250) default NULL,
+  `pd` varchar(250) default NULL,
+  `pmj` varchar(250) default NULL,
+  `pdu` varchar(250) default NULL,
+  `pgpa` varchar(250) default NULL,
+  `pd2` varchar(250) default NULL,
+  `pmj2` varchar(250) default NULL,
+  `pdu2` varchar(250) default NULL,
+  `pgpa2` varchar(250) default NULL,
+  `subdate` timestamp NULL default CURRENT_TIMESTAMP,
+  `workex` varchar(250) default NULL,
+  `desdate` varchar(250) default NULL,
+  `essayanswer` text,
+  `astatus` varchar(25) default NULL,
+  `bday` varchar(11) default NULL,
+  `reviewcom` varchar(250) default NULL,
+  `reviewsug` varchar(250) default NULL,
+  PRIMARY KEY  (`applicationid`),
+  KEY `studentid` (`studentid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+

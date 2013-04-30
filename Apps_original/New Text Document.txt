@@ -1,0 +1,7 @@
+How to use git
+
+git pull to get new files
+make changes
+git add then git commit
+then git push (-u origin branchname if first time)
+then call pull request if a different branch

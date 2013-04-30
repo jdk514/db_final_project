@@ -1,0 +1,35 @@
+March 27th:
+	Deliverables (Joel)
+	Create Mysql tables
+		All ID’s kept as 8 digit integers
+Student, transcript, Personal info, Recommendation (Dian)
+		Reviewer, GA, Applicant Tables (Joel)
+	Git Fully Functional (Dian and Joel)
+	Create some applicants and Reviews (Dian and Joel)
+April 3rd:
+	Make sure all ID's are number indicated (1XXXXXXX - student, 2XXXXXXX - Reviewer, 3XXXXXXX - GS)
+	Application Page - (Dian)
+		Submission for application - also generate password/id
+		Redirect to Submission sucessful that posts id and password
+	Login page (used by both GS, Student status, and reviewer) - (Joel)
+		implement login for GS and Students
+	GS update page and Student Status page (Joel)
+April 9th:
+	Application Page (Dian)
+		Print on the completion page:
+			Generated UserID, Login page, Login procedure for Recommendations
+	Reviewer Page (Dian)
+		Reviewer should login through the login page and be able to see all applicants needing review
+		Then select and review any applicant
+	Recommnedation Page (Joel)
+		Have the login use studentid and password 'recommend' with the login page
+	Workflow Diagram (Joel)
+
+
+After April 9th:
+	GS only update if application has been reviewed (Joel)
+	Login for Reviewer (Joel/Dian)
+	Update Review page to incorporate transcript/rec 
+		Also loop back the review to the main page (Dian)
+	Have the app page link to the login page (Joel/Dian)
+	
