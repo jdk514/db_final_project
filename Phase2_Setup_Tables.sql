@@ -24,32 +24,7 @@ create table Alumni(
    DegreeType  varchar(60),
    YearGrad  varchar(60));
    
-drop table if exists CourseRegistration cascade;
-create table CourseRegistration(
-	CourseID     varchar(60),
-	CourseNum varchar(60),  
-   	Title  varchar(60),
-   	CreditHrs    int(10),
-   	ClassDay     varchar(60),
-   	ClassTime    varchar(60),
-   	InameF       varchar(60),
-   	InameL       varchar(60));
-   
-   drop table if exists CoursePrerequisites cascade;
-create table CoursePrerequisites(
-	CourseNum 	 varchar(60),
-   MainPrereq    varchar(60),
-   SecPrereq  	 varchar(60));
-   
-   drop table if exists Grades cascade;
-create table Grades(
-   GPA         varchar(60),
-   Semester    varchar(60),
-   Year        int(10),
-   CourseID    varchar(60),
-   CreditHrs   varchar(60),
-   GWUID	   varchar(60) primary key );
-   
+      
    drop table if exists Advisors cascade;
 create table Advisors(
 	AdvID     varchar(60),
