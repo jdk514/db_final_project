@@ -33,3 +33,14 @@ Create Table Transcript(
 	tofel int (3),
 	FOREIGN	KEY (studentid) references Student
 )
+
+
+CREATE TABLE `app_to_reg` (
+  `studentid` int(8) NOT NULL default '0',
+  `firstname` varchar(64) NOT NULL default '',
+  `lastname` varchar(64) NOT NULL default '',
+  `email` varchar(50) NOT NULL default '',
+  `loginpassword` varchar(50) NOT NULL default '',
+  `dsought` varchar(10) NOT NULL default '',
+  PRIMARY KEY  (`studentid`)
+)
