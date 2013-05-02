@@ -1,0 +1,87 @@
+March 20
+
+ - Complete ER Diagram (Connor + Ross)
+ - Initialize Git repository (Connor + Ross)
+
+March 27
+
+Complete table build and population scripts
+
+	- Need a setup class so the application can be deployed anywhere that has an apache
+	  web server and mysql database (Connor)
+
+	- Need global query class so queries can be issues through one area, making it easier
+	  to catch errors and handle warnings, security, etc (Connor)
+
+	- Need lots of sample data so the tables can be populated accordingly (Ross)
+
+	- Start design and layout of course schedule page(s) (Ross)
+
+April 3
+	**Most Important**
+		- Let student sign up for class
+		- Let professor/grad secretary set/change grades for classes
+
+	- Make sure all queries are queryable with current database structure (Ross + Connor)
+
+	- Complete login system (Ross + Connor)
+
+		- Utilize sessions (or cookies, might be easier)
+
+		- Standardize MVC-esque handling of login/not logged in
+
+		- Standardize MVC-esque handling of different roles
+
+		- Hash passwords (md5)
+
+	- Complete course schedule views (Connor)
+
+		- Basic class schedule presentation
+
+		- Pick a class schedule presentation
+
+		- View current class schedule
+
+	- Complete transcript views (Ross)
+
+		- View past courses (student)
+
+		- View/edit current students in course (teacher)
+
+April 10
+
+	- Security (Ross)
+
+		- Impelement escaping for inputting into mysql
+
+		- Check if functions are created, if not implement functions 
+		  for escaping various output to html (esc_html, esc_attributes, esc_input, esc_textarea)
+
+		  	- These functions will all need some form of escape/filter_var functionality
+
+	- API (Connor)
+
+		- Make dead simple API to extrat data from database for downstream team to interface with system
+
+			- Needs to implement some form of OAuth (or does it...?)
+
+			- Need to figure out just x number of data elements the downstream team will need and implement
+			  just those requirements
+
+	- Will we have access to upstream team data by this time?
+
+	- Interfacing with upstream team (Connor + Ross)
+
+		- Work on interfacing with the upstream data
+
+			- A user should be able to be moved from accepted to having "able to register" status
+
+			- Possibility of accepting high school credit and need to implement that in transcript
+
+	- Celebrate Connor's birthday (it's on the 8th!)
+
+April 16
+
+	-Present product to Professor and Roxana
+
+	
