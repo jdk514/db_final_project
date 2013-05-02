@@ -48,6 +48,21 @@ function query(){
         <div id="main">
             <?php $status=query();
                 echo ($status[1]." ".$status[2].": ".$status[3]);
+                if($status[3]=="Accepted"){
+                    ?>
+                    <form name="Accept" action="accepted.php" method="post"><br/>
+                        <input type="submit" name="Status" value="Enroll">
+                        <input type="submit" name="Status" value="Reject">
+                        <input type="submit" name="Status" value="Defer">
+                    </form>
+                    <?php
+                }
+                if ($status[3]=="Enroll"){
+                    ?>
+                    <p>Congratulations on your acceptance! Welcome to GWU, click <a href="registration.php">here</a>
+                        to begin your registration.</p>
+                        <?php
+                }
             ?>
         </div>
     </body>
