@@ -196,6 +196,26 @@ function get_active_courses ( $uid ) {
 
 }
 
+function student_has_prereqs( $student_id, $course_id ) {
+
+	global $tp_query;
+
+	$query = "SELECT * FROM tp_course WHERE cid = ANY( SELECT prereq_id FROM tp_course_has_prereqs WHERE tp_course_has_prereqs.course_id = $course_id );";
+	$prereqs = $tp_query->query( $query );
+
+	$no_prereqs = array();
+
+	foreach( $prereqs as $prereq ) {
+		$pre_id = $prereq['cid'];
+		$query = "SELECT * FROM tp_transcript_courses WHERE user_id = $student_id AND course_id = $pre_id;";
+		$course_taken = $tp_query->query( $query );
+		if( empty( $course_taken ) ) {
+			$no_prereqs[] = $pre_id;
+		}
+	}
+	return $no_prereqs;
+}
+
 function move_course_to_removed( $cid, $uid ) {
 	if( !isset( $uid ) || !isset( $cid ) )
 		return false;

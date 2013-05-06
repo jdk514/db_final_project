@@ -46,7 +46,8 @@ function show_login_form() {
 function init_user_login( $username, $login ) {
 	global $tp_query;
 
-	get_and_add_new_users_app();
+	if( !SINGLE )
+		get_and_add_new_users_app();
 
 	if( !isset( $username ) || !isset( $login ) ) {
 		$_SESSION['login_error'] = 'Please enter a username and password.';

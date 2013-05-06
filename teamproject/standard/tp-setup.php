@@ -39,12 +39,12 @@ class TP_Setup {
 			'cid INT PRIMARY KEY AUTO_INCREMENT,',
 			'course_num INT,',
 			'title VARCHAR(100),',
-			'semester VARCHAR(50),',
+			//'semester VARCHAR(50),',
 			'credits INT,',
 			'status VARCHAR(75),',
 			'class_time VARCHAR(75),',
 			'class_day VARCHAR(15),',
-			'year VARCHAR(10),',
+			//'year VARCHAR(10),',
 			'FOREIGN KEY (course_num) REFERENCES tp_course_dept(cdid)'
 		), 
 		'tp_degree' => array(

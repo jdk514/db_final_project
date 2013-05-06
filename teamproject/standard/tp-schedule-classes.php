@@ -35,6 +35,13 @@ function get_classes_in_dept_by_year_sem( $year, $sem ) {
 	return $tp_query->query( $query );
 }
 
+function get_departments() {
+	global $tp_query;
+
+	$query = "SELECT DISTINCT dept_name, dept_full_name FROM tp_course_dept";
+	return $tp_query->query( $query );
+}
+
 function get_department_names() {
 	global $tp_query;
 

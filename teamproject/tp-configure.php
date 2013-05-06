@@ -15,13 +15,16 @@ function find_current_page() {
 	return $current_page;
 }
 //Flippable constants, making things easy to modify
-define( 'TP_USER', 'cojennin' );
-define( 'TP_PASS', 'Swnny.D8y!' );
+//define( 'TP_USER', 'cojennin' );
+//define( 'TP_PASS', 'Swnny.D8y!' );
+define( 'TP_USER', 'root');
+define( 'TP_PASS', 'root');
 define( 'TP_HOST', 'localhost' );
-define( 'TP_DB_NAME', 'cojennin' );
+define( 'TP_DB_NAME', 'newteamproject' );
 define( 'DEBUG', true);
-define( 'SITE_DIR', '/~cojennin/teamproject/' );
-define( 'SITE_ABS', 'http://' . $_SERVER['HTTP_HOST'] . '/~cojennin/teamproject/');
+define( 'SITE_DIR', '/~jennings/' );
+define( 'SITE_ABS', 'http://' . $_SERVER['HTTP_HOST'] . '/~jennings/teamproject/');
+define( 'SINGLE', true );
 //define( 'SITE_ABS', 'http://' . $_SERVER['HTTP_HOST'] .'/' );
 $GLOBALS['pagenow'] = find_current_page();
 ?>

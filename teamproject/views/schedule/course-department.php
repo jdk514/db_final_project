@@ -2,7 +2,7 @@
 include_once '../../header.php';
 global $tp_user;
 
-$classes = get_classes( array('dept_name' => $_GET['department'], 'year' => $_GET['year'], 'semester' => $_GET['semester'] ) );
+$classes = get_classes( array('dept_name' => $_GET['department'] ) );
 $class_fields = array_keys( $classes[0] );
 $structured_class_fields = array();
 foreach( $class_fields as $field ) {

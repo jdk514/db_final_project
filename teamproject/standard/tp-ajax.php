@@ -43,6 +43,14 @@ function ajax_add_class_from_pending_to_active() {
 		die();
 	}
 
+	$course_needs_prereqs = student_has_prereqs( $_SESSION['user_login'], $_GET['class_id'] );
+
+	if( !empty( $course_needs_prereqs ) ) {
+		echo 'Error: The following course(s) are needed before this course can be taken: ' . implode( ',', $course_needs_prereqs );
+		return;
+		die();
+	}
+
 	$course_moved = move_course_from_pending_to_active( $_GET['class_id'], $_SESSION['user_login'] );
 	
 	if( is_array( $course_moved ) ) {
