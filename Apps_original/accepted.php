@@ -36,7 +36,7 @@ function query(){
     or die('Error querying database.');
     if($status=="Enroll"){
         $query = "INSERT INTO app_to_reg (studentid, firstname, lastname, email, loginpassword, dsought) SELECT
-        Student.studentid, Student.firstname, Student.lastname, Student.email, Student.loginpassword, Applications.dsought FROM Student, Applications
+        Student.studentid, Student.firstname, Student.lastname, Student.email, Student.loginpassword, Student.address Applications.dsought FROM Student, Applications
         Where Student.studentid=$student AND Student.studentid=Applications.studentid";
         mysql_query($query)
         or die('Error querying database.');
