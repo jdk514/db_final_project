@@ -31,6 +31,27 @@ div#select{
 		echo("Students Updated");
 	}
 
+	function single_query($input){
+		$name = preg_split('/\s/', $input);
+		$first = $name[0];
+		$last = $name[1];
+		$id = (int)$input;
+		require_once "config.php";
+		$failed = "Nothing found";
+		$table = Array();//array to hold the results of the query
+		$query = "SELECT studentid, firstname, lastname, studentstatus FROM Student WHERE firstname='$first' OR lastname='$last' OR studentid=$id OR lastname='$first'";
+		$result = mysql_query($query)
+	        or die('Error querying database.');
+        while($row = mysql_fetch_row($result)){
+        	array_push($table, $row);//add each student to the array
+        }
+        if(is_null($result)){
+        	return $failed;
+        }else{
+        	return $table;
+        }
+	}
+
 	function query (){//initial query to find all of the students and their respective status
 		    require_once "config.php";
 			$failed = "Nothing found";//if nothing is found in the table
@@ -81,22 +102,51 @@ div#select{
 		<div id="header">
 			GA Page
 		<div id="main">
+			<form name="search_status" action="ga_page.php" method="get">
+				<input type="text" name="search_name" value="Search For a Name">
+				<input type="submit" Value="Search">
+			</form>
 			<form name="status_update" action="ga_page.php" method="post"><!--form that is used to submit status alterations-->
 				<?php
 					$students = query();
-					foreach($students as $std => $value){
-					?>
-					<div id="select">
-						<?php echo ($value[1]." ".$value[2]." is ");?>
-						<select name="<?php print $value[0];?>">
-							<option><?php print $value[3]; ?></option>
-							<option>Waiting for Review</option>
-							<option>Accepted</option>
-							<option>Rejected</option>
-						</select></br>
-					</div>
-					<?php
-				}
+					if(!empty($_GET["search_name"])){
+						$search = single_query($_GET["search_name"]);
+						?>
+						<div style="overflow-y:scroll; height:200px">
+						<?php
+						foreach($search as $std => $value){
+						?>
+							<div id="select">
+								<?php echo ($value[1]." ".$value[2]." is ");?>
+								<select name="<?php print $value[0];?>">
+									<option><?php print $value[3]; ?></option>
+									<option>Waiting for Review</option>
+									<option>Accepted</option>
+									<option>Rejected</option>
+								</select></br>
+							</div>
+							<?php
+						}
+						?></div><?php
+					}else{
+						?>
+						<div style="overflow-y:scroll; height:200px">
+						<?php
+						foreach($students as $std => $value){
+						?>
+						<div id="select">
+							<?php echo ($value[1]." ".$value[2]." is ");?>
+							<select name="<?php print $value[0];?>">
+								<option><?php print $value[3]; ?></option>
+								<option>Waiting for Review</option>
+								<option>Accepted</option>
+								<option>Rejected</option>
+							</select></br>
+						</div>
+						<?php
+						}
+						?></div><?php
+					}
 				?>
 				<p>To see Student Reviews <a href="galist.php">click here.</a><br/><br/>
 				<input type="submit" Value="Submit">
