@@ -8,7 +8,7 @@
 	<?php
 		if($_GET["search"]){
 			?>
-			<table border="1">
+			<table border="1" style="width:600px; margin:0 17px 0 0">
 			<td><a>Click To REVIEW</a></td>
 			<td><a>Appcationid</a></td>
 			<td><a>Degree Seeking</a></td>
@@ -37,7 +37,7 @@
 	</table>
 	<hr>
 	<div style="overflow-y:scroll; height:300px">
-	<table border="1">
+	<table border="1" style="width:600px">
 	<td><a>Click To REVIEW</a></td>
 	<td><a>Appcationid</a></td>
 	<td><a>Degree Seeking</a></td>
