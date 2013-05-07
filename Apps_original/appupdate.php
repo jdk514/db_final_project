@@ -220,14 +220,12 @@ $apid = rand(50000000,59999999);
 $length = 10;
 $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 
-
-
-if($pbday=="") {$err=1;echo "Birthday should not be empty<br />";}
-if($pds=="") {$err=1;echo "Degree Sought Must be inserted<br />";}
 if($pemail=="") {$err=1;echo "Email address must be filled<br />";}
+
 	
 if($err!=1) {
 		require_once "config.php";
+
 		
 $query=$db->query("update Student  set `email`='".$pemail."' where studentid='".$id."'");
 $query=$db->query("update Applications  set `aoi`= '".$paoi."',`dsought`= '".$pds."',`pd`= '".$ppd."',`pgpa`='".$ppgpa."',`workex`='".$pwex."',`desdate`='".$pdas."',`essayanswer`='".$pessay."',`pdu`='".$ppu."',`pd2`= '".$ppd2."',`pdu2`= '".$ppu2."',`pgpa2`='".$ppgpa2."',`pmj`= '".$pmd."',`pmj2`='".$pmd2."',`bday`='".$pbday."',`phone`='".$pphone."' where studentid='".$id."'");
@@ -235,11 +233,8 @@ $query=$db->query("update Transcript  set `gre`= '".$pgs."',`greverbal`='".$pvb.
 
 
 
-echo "Infomation is submitted<br /> ";
-echo  "Your student ID is : $stid <br />";
-echo  "Your login password is : $randomString <br />";
-echo  "Please keep record of the previous information <br />";
-echo  "To view the status of your application <a href='login.php'>click here</a>";
+echo  "Your Student Information is updated <br />";
+
   }
 }else{
 ?>
@@ -280,7 +275,7 @@ echo  "To view the status of your application <a href='login.php'>click here</a>
 			</style>
 			<div>
 		  <hr>
-		  <form name="stinput" method="post" action="app.php?action=1" onsubmit="return check()">
+		  <form name="stinput" method="post" action="appupdate.php?action=1&id=<?php echo $id;?>" onsubmit="return check()">
 		  	<div align="left">
 		  	<div>
 		  <p class="auto-style1"><em>Personal Information</em></p>
