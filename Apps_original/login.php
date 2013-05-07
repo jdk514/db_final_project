@@ -27,20 +27,14 @@ div#header{
 session_start();
 
 function query ($searchquery){
-	if(is_numeric($searchquery["user"])){
-		$gsid = $searchquery["user"];//should fix to check that this is an int value
-	}else{
-		$gsid = 0;
-	}
-
 	$pass = $searchquery["password"];
 	$_SESSION["username"]=$gsid;
 	if(substr($searchquery["user"], 0, 1)=='1'){
 		login($gsid, $pass, "studentid", "Student", "login_Student", "student_page.php");
-	}else if(substr($searchquery["user"], 0, 1)=='2'){
-		login($gsid, $pass, "reviewerid", "Reviewers", "login_Reviewer", "list.php");
+	}else if(is_string($searchquery["user"], 0, 1)){
+		login($gsid, $pass, "user_name", "tp_users", "login_Reviewer", "list.php");
 	}else if(substr($searchquery["user"], 0, 1)=='3'){
-		login($gsid, $pass, "gsid", "GA", "login_GA", "ga_page.php");
+		login_faculty($gsid, $pass, "gsid", "GA", "login_GA", "ga_page.php");
 	}else{
 		$_SESSION["login"]="false";
 	}
@@ -49,6 +43,25 @@ function query ($searchquery){
 function login($gsid, $pass, $sqlid, $sqltable, $login, $redirect){
 	require_once "config.php";
 	$query = "SELECT $sqlid FROM $sqltable WHERE $sqlid = $gsid AND loginpassword ='$pass'";//check to see if the combo exists in db
+    $result = mysql_query($query)
+    or die('Error querying database.');
+    $result = mysql_fetch_row($result);
+    if(empty($result)){
+    	$_SESSION["login"] = "false";
+    }else{
+    	$_SESSION[$login] = "true";
+		?>
+			<script>
+			window.location = "<?=$redirect?>"
+			</script>
+		<?php
+    }
+}
+
+function login_faculty($gsid, $pass, $sqlid, $sqltable, $login, $redirect){
+	$db = new db;
+	$db->connect('localhost', 'cojennin', 'Swnny.D8y!', 'cojennin',1);
+	$query = "SELECT $sqlid FROM $sqltable WHERE $sqlid = $gsid AND user_pass='$pass' AND role_id=3";//check to see if the combo exists in db
     $result = mysql_query($query)
     or die('Error querying database.');
     $result = mysql_fetch_row($result);
