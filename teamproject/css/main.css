@@ -203,6 +203,9 @@ hr {
 	margin-top: -3px !important;
 }
 
+.buffer {
+	padding: 10px;
+}
 
 /**
  * For modern browsers

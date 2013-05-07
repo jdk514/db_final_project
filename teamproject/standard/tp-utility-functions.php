@@ -41,16 +41,18 @@ function get_transcript_courses_taken( $user_id ) {
 	$tid = $tp_query->query( $query );
 	$tid = $tid[0]['tid'];*/
 
-	$query_for_courses = "SELECT course_id, course_grade FROM tp_transcript_courses WHERE user_id = $user_id;";
+	$query_for_courses = "SELECT course_id, course_grade, course_semester, course_year FROM tp_transcript_courses WHERE user_id = $user_id;";
 	$course_ids = $tp_query->query( $query_for_courses );
 	$courses = array();
 
 	foreach( $course_ids as $course_id ) {
 		$course_id_value = $course_id['course_id'];
-		$query = "SELECT title,semester,credits,year FROM tp_course WHERE cid = $course_id_value; ";
+		$query = "SELECT title,credits FROM tp_course WHERE cid = $course_id_value; ";
 		$course_info = $tp_query->query( $query );
 		$course_info = $course_info[0];
 		$course_info['grade'] = $course_id['course_grade'];
+		$course_info['semester'] = $course_id['course_semester'];
+		$course_info['year'] = $course_id['course_year'];
 
 		$courses[] = $course_info;
 	}

@@ -33,11 +33,11 @@ foreach( $class_fields as $field ) {
 					if( $field_name == 'cid' || $field_name == 'cdid' || $field_name == 'dept_full_name' )
 						continue;
 						
-						if( $field_name == 'title' && user_has_course( $row['cid'], $tp_user->uid, 'pending' ) === 'pending' )
+						if( $field_name == 'title' && user_has_course( $row['cid'], $tp_user->uid, 'pending' ) === 'pending' && user_is_student() )
 							echo '<td align="center"><span class="pending">' . $field_value . '</span></td>';
-						else if( $field_name == 'title' && user_has_course( $row['cid'], $tp_user->uid, 'active' ) === 'active' )
+						else if( $field_name == 'title' && user_has_course( $row['cid'], $tp_user->uid, 'active' ) === 'active' && user_is_student() )
 							echo '<td align="center"><span class="active">' . $field_value . '</span></td>';
-						else if( $field_name == 'title' && user_has_course( $row['cid'], $tp_user->uid, 'transcript' )  === 'transcript' )
+						else if( $field_name == 'title' && user_has_course( $row['cid'], $tp_user->uid, 'transcript' )  === 'transcript' && user_is_student() )
 							echo '<td align="center"><span class="transcript">' . $field_value . '</span></td>';
 						else if( $field_name == 'title' && is_user_logged_in() && user_is_student() )
 							echo '<td align="center"><a href="#" class="course-title">' . $field_value . '</a></td>';

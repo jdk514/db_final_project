@@ -37,7 +37,9 @@ function ajax_add_class_from_pending_to_active() {
 
 	$number_of_active_courses = get_active_courses( $_SESSION['user_login'] );
 
-	if( $number_of_active_courses >= 3 ) {
+	$number_of_hold_or_approval_courses = get_hold_or_approval( $_SESSION['user_login'] );
+
+	if( $number_of_active_courses >= 3 || $number_of_hold_or_approval_courses >= 3 ) {
 		echo 'Error: Too many courses. Please remove a course before adding a new one.';
 		return;
 		die();
@@ -64,7 +66,11 @@ function ajax_add_class_from_pending_to_active() {
 	$course_info = $course_info[0];
 	
 	$course_html = '<li id="active-course-id-' . $course_info['cid'] . '">' . $course_info['title'] . ' - ' . $course_info['class_time'] . ' - ' . $course_info['class_day'] . ' - </span><a href="#" class="remove-course">remove</a></li>'; 
-	echo "html: $course_html";
+	
+	if( get_user_meta( $_SESSION['user_login'], 'course_hold') === '1' )
+		echo "hold-html: $course_html";
+	else 
+		echo "active-html: $course_html";
 
 	session_write_close();
 	die();

@@ -13,8 +13,9 @@
 		<ul id="header-navigation" class="cf">
 			<li>Home</li>
 			<li><a href="./Apps_original/login.php">Student Application</a></li>
-			<li><a href="./teamproject/index.php">Student Registration</a></li>
+			<li><a href="./teamproject/">Student Registration</a></li>
 			<li>Student Advising</li>
+			<li><a href="./teamproject/standard/tp-setup.php?reset=all" style="color:red">Reset</a></li>
 		</ul>
 
 <?php include './teamproject/footer.php'; ?>
