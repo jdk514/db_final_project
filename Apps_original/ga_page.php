@@ -35,13 +35,13 @@ session_start();
 			$query = "UPDATE Student Set studentstatus='Waiting for Recommendation' Where studentstatus='Submitted'";
 			mysql_query($query)
 			or die('Error querying database');
-			$query = "UPDATE Student, Recommendation Set Student.studentstatus='Waiting for Transcript' Where Student.studentid=Recommendation.studentid and Recommendation.Content>''
-						and Student.studentstatus<>'Accepted' and Student.studentstatus<>'Rejected'and Student.studentstatus<>'Application has been Reviewed' and
+			$query = "UPDATE Student, Recommendation Set Student.studentstatus='Application Incomplete - Waiting for Transcript' Where Student.studentid=Recommendation.studentid and Recommendation.Content>''
+						and Student.studentstatus<>'You have been Admitted' and Student.studentstatus<>'You have been Rejected'and Student.studentstatus<>'Application has been Reviewed' and
 						Student.studentstatus<>'Waiting for Review'";
 			mysql_query($query)
 			or die('Error querying database');
 			$query = "UPDATE Student, Applications Set Student.studentstatus='Application has been Reviewed' where Student.studentid=Applications.studentid
-						and Applications.reviewsug>'' and Student.studentstatus<>'Accepted' and Student.studentstatus<>'Rejected'";
+						and Applications.reviewsug>'' and Student.studentstatus<>'You have been Admitted' and Student.studentstatus<>'You have been Rejected'";
 			mysql_query($query)
 			or die('Error querying database');
 	        $query = "SELECT studentid, firstname, lastname, studentstatus FROM Student Where studentstatus!='Waiting for Recommendation'";//we take the name, status, and id (used to match students)
@@ -63,7 +63,7 @@ session_start();
 		        $query = "UPDATE Student, Recommendation SET Student.studentstatus='$status' WHERE Student.studentid=$std and Student.studentid=Recommendation.studentid and Recommendation.Content>''";//set studentstatus to the new status if the id's match
 		       	mysql_query($query)
 		    	or die('Error querying database.');
-	    	}else if($status=="Accepted" | $status=="Rejected"){
+	    	}else if($status=="You have been Admitted" | $status=="You have been Rejected"){
 	    		$query = "UPDATE Student, Applications SET Student.studentstatus='$status' WHERE Student.studentid=$std and Student.studentid=Applications.studentid and Applications.reviewsug>''";
 	    		mysql_query($query)
 		    	or die('Error querying database.');
@@ -97,10 +97,15 @@ session_start();
 										<select name="<?php print $value[0];?>">
 											<option><?php print $value[3]; ?></option>
 											<option>Waiting for Review</option>
-											<option>Accepted</option>
-											<option>Rejected</option>
+											<option>You have been Admitted</option>
+											<option>You have been Rejected</option>
 										</select></br>
 									</div>
+									<?php
+								}
+								if(is_numeric($_GET["search_name"])){
+									?>
+									<p>Update the students info <a href="appupdate.php?id=<?php echo $_GET['search_name']?>">Click Here</a></p>
 									<?php
 								}
 								?></div><?php
@@ -115,8 +120,8 @@ session_start();
 									<select name="<?php print $value[0];?>">
 										<option><?php print $value[3]; ?></option>
 										<option>Waiting for Review</option>
-										<option>Accepted</option>
-										<option>Rejected</option>
+										<option>You have been Admitted</option>
+										<option>You have been Rejected</option>
 									</select></br>
 								</div>
 								<?php

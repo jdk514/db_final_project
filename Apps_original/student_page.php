@@ -28,7 +28,7 @@ function query(){
                                 <input type="submit" name="Status" value="Enroll">
                                 <input type="submit" name="Status" value="Reject">
                                 <input type="submit" name="Status" value="Defer">
-                            </form>
+                            </form></br>
                             <?php
                         }
                         if ($status[3]=="Enroll"){
@@ -38,6 +38,7 @@ function query(){
                                 <?php
                         }
                     ?>
+                    </br><a href="appupdate.php?id=<?php echo $_SESSION['username']?>">Update Application Information</a>
                 </div>
             </div>
             <?php else :?>
