@@ -76,10 +76,10 @@ session_start();
 		<div id="content">
 			<?php if ($_SESSION["login_GA"] == "true") :?>
 				<div style="text-align:center">
-					GA Page
+					<h4>GA Page</h4>
 				<div>
 					<form name="search_status" action="ga_page.php" method="get">
-						<input type="text" name="search_name" value="Search For a Name">
+						<input style="margin: 0 10px 0 0" type="text" name="search_name" value="Search For a Name">
 						<input type="submit" Value="Search">
 					</form>
 					<form name="status_update" action="ga_page.php" method="post"><!--form that is used to submit status alterations-->
@@ -129,7 +129,8 @@ session_start();
 								?></div><?php
 							}
 						?>
-						<p>To see Student Reviews <a href="galist.php">click here.</a><br/><br/>
+						<p>To see Student Reviews <a href="galist.php">click here.</a><br/>
+						<p>To Query for Applicant Results <a href="ga_queries.php">click here</a><br/><br/>
 						<input type="submit" Value="Submit">
 					</form>
 				</div>
