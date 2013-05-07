@@ -280,6 +280,93 @@ $setup_data = array (
 	'app_to_reg' => array(
 		"INSERT INTO app_to_reg VALUES(12693152, 'Joel', 'Klein', 'jdk514@gwmail.gwu.edu', 'l8qWdofxJK', 'MS');"
 	),
+	
+	'CoursePrerequisites' => array(
+		"INSERT INTO CoursePrerequisites values ('CS 6221','None','None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6461','None', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6212','None', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6220','None', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6232','None', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6233','CS 6232','None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6241','None', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6242','CS 6241', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6246','CS 6461','CS 6212');",
+		"INSERT INTO CoursePrerequisites values ('CS 6260','CS 6221', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6251','CS 6461', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6254','CS 6221', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6262','None', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6283','CS 6212', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6286','CS 6283', 'CS 6232');",
+		"INSERT INTO CoursePrerequisites values ('CS 6284','CS 6212', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6325','CS 6212', 'None');",
+		"INSERT INTO CoursePrerequisites values ('CS 6384','CS 6284', 'CS 6283');",
+		"INSERT INTO CoursePrerequisites values ('CS 6339','CS 6461','CS 6212');",
+		"INSERT INTO CoursePrerequisites values ('EE 6243','None','None');",
+		"INSERT INTO CoursePrerequisites values ('EE 6244','None','None');",
+		"INSERT INTO CoursePrerequisites values ('Math 6210','None','None');"
+	),
+/*
+	'CourseRegistration' => array (
+		"INSERT INTO CourseRegistration values (1,'CS 6221','Software Paradigms',3,'M','3-5:30pm', 'Margaery', 'Tyrell');",
+		"INSERT INTO CourseRegistration values (2,'CS 6461','Computer Architecture',3,'T','3-5:30pm','Theon','Greyjoy');",
+		"INSERT INTO CourseRegistration values (3,'CS 6212','Algorithms',3,'W','3-5:30pm','Sandor','Clegane');",
+		"INSERT INTO CourseRegistration values (4,'CS 6225','Data Compression',3,'R','3-5:30pm','Khal','Drogo');",
+		"INSERT INTO CourseRegistration values (5,'CS 6232','Networks 1',3,'M','6-8:30pm','Jeor','Mormont');",
+		"INSERT INTO CourseRegistration values (6,'CS 6233','Networks 2',3,'T','6-8:30pm','Samwell','Tarly');",
+		"INSERT INTO CourseRegistration values (7,'CS 6241','Database 1',3,'W','6-8:30pm', 'Margaery', 'Tyrell');",
+		"INSERT INTO CourseRegistration values (8,'CS 6242','Database 2',3,'R','6-8:30pm','Samwell','Tarly');",
+		"INSERT INTO CourseRegistration values (9,'CS 6246','Compilers',3,'T','3-5:30pm', 'Margaery', 'Tyrell');",
+		"INSERT INTO CourseRegistration values (10,'CS 6251','Distributed Systems',3,'M','6-8:30pm','Theon','Greyjoy');",
+		"INSERT INTO CourseRegistration values (11,'CS 6254','Software Engineering',3,'M','3-5:30pm','Theon','Greyjoy');",
+		"INSERT INTO CourseRegistration values (12,'CS 6260','Multimedia',3,'R','6-8:30pm', 'Margaery', 'Tyrell');",
+		"INSERT INTO CourseRegistration values (13,'CS 6262','Graphics 1',3,'W','6-8:30pm','Khal','Drogo');",
+		"INSERT INTO CourseRegistration values (14,'CS 6283','Security 1',3,'T','6-8:30pm','Theon','Greyjoy');",
+		"INSERT INTO CourseRegistration values (15,'CS 6284','Cryptography',3,'M','6-8:30pm','Khal','Drogo');",
+		"INSERT INTO CourseRegistration values (16,'CS 6286','Network Security',3,'W','6-8:30pm','Theon','Greyjoy');",
+		"INSERT INTO CourseRegistration values (17,'CS 6325','Advanced Algorithms',3,'R','4-6:30pm','Jeor','Mormont');",
+		"INSERT INTO CourseRegistration values (18,'CS 6339','Embedded Systems',2,'T','3-5:30pm','Khal','Drogo');",
+		"INSERT INTO CourseRegistration values (19,'CS 684','Advanced Crypto',3,'W','4-6:30pm','Jeor','Mormont');",
+		"INSERT INTO CourseRegistration values (20,'EE 6243','Communication Systems',3,'M','6-8:30pm','Sandor','Clegane');",
+		"INSERT INTO CourseRegistration values (21,'EE 6244','Information Theory',2,'T','6-8:30pm','Sandor','Clegane');",
+		"INSERT INTO CourseRegistration values (22,'Math 6210','Logic',2,'W','6-8:30pm','Sandor','Clegane');",
+	),
+
+	'Students' => array(
+		"INSERT INTO Students values (3000, 'Andrea', 'Holden', 3.5, 'AHolden@gwu.edu', 'Computer Science', 7564389178, '5 Pin Lane', 'Fall', '2010');",
+		"INSERT INTO Students values (3001, 'Shane', 'Walsh', 3.0, 'SWalsh@gwu.edu', 'Computer Science', 70923876485, '10 King Ct', 'Fall', '2010' );",
+		"INSERT INTO Students values (3002, 'Rick', 'Grimes', 2.5, 'RGrimes@gwu.edu', 'Computer Science', 1276394586, '23 Mary St', 'Fall', '2010' );",
+		"INSERT INTO Students values (3003, 'Daryl', 'Dixon', 4.0, 'DDixon@gwu.edu', 'Computer Science', 28736405971, '1203 Tree St', 'Fall', '2010' );",
+		"INSERT INTO Students values (3004, 'Maggie', 'Greene', 2.0, 'MGreene@gwu.edu', 'Computer Science', 9762538741, '213 Abigale Ct', 'Fall', '2010' );",
+		"INSERT INTO Students values (3005, 'Glenn', 'Rhee', 2.9, 'GRhee@gwu.edu', 'Computer Science', 82681752308, '908 Fortune Lane', 'Fall', '2010' );",
+	),
+
+	'Advisors' => array(
+		"INSERT INTO Advisors values (2000,'Jon','Snow');",
+		"INSERT INTO Advisors values (2001,'Eddard','Stark');",
+		"INSERT INTO Advisors values (2002,'Tyrion','Lannister');",
+		"INSERT INTO Advisors values (2003,'Daenerys','Targaryen');",
+		"INSERT INTO Advisors values (2004,'Petyr','Baelish');",
+		"INSERT INTO Advisors values (2005,'Stannis','Baratheon');",
+	),
+	
+	'Instructors' => array(
+		"INSERT INTO Instructors values (1000,'Margaery','Tyrell');",
+		"INSERT INTO Instructors values (1001,'Theon','Greyjoy');",
+		"INSERT INTO Instructors values (1002,'Sandor','Clegane');",
+		"INSERT INTO Instructors values (1003,'Khal','Drogo');",
+		"INSERT INTO Instructors values (1004,'Jeor','Mormont');",
+		"INSERT INTO Instructors values (1005,'Samwell','Tarly');",
+	),
+
+	'RequiredCourses' => array(
+		"INSERT INTO RequiredCourses values ('MS', 'CS 6221');",
+		"INSERT INTO RequiredCourses values ('MS', 'CS 6461');",
+		"INSERT INTO RequiredCourses values ('MS', 'CS 6212');",
+	),
+
+	'DegreeReqs' => array(
+		"INSERT INTO DegreeReqs values ('MS', '2', '10', '3.0', '2.7');",
+	),*/
 );
 
 

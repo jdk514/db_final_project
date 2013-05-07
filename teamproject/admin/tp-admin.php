@@ -278,12 +278,20 @@ function get_and_add_new_users_app() {
 		$number = (int)array_shift(array_shift($tp_query->query($query)));
 		
 		if( $number == 0 )
-			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (null, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (1, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
 		else {
 			$user_name = $user_name . $number;
-			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (null, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (1, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
 		}
 
+		$tp_query->query( $query );
+
+		$query = "SELECT uid FROM tp_users WHERE user_name = '$user_name'";
+		$user_id = $tp_query->query( $query );
+
+		$user_id = $user_id[0]['uid'];
+
+		$query = "INSERT INTO tp_users_meta(user_id, meta_key, meta_val) VALUES ($user_id, 'course_hold', '1');";
 		$tp_query->query( $query );
 	}
 
