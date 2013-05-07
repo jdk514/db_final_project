@@ -275,7 +275,11 @@ $setup_data = array (
 	'Applications' => array(
 			"INSERT INTO Applications VALUES(54582981, 'Learning', 15222586, 'MS', 'BS', 'ALL', 'Temple', '4.5', 'BS', '', '', '', '2013-04-17 16:29:05', 'I just study', 'Fall 2013', '', 'Notviewed', '2010-04-24', NULL, NULL);",
 			"INSERT INTO Applications VALUES(50568867, 'Fencing', 12693152, 'MS', 'BS', 'Comp Sci', 'GWU', '3.7', 'BS', '', '', '', '2013-04-17 16:22:09', 'TA at GWU', 'Fall 2013', '', 'viewed', '1992-06-04', 'Looks good, but can afford our institution and provides no other warrant for admitting with aid.', 'Admit without Aid');",
-	)
+	),
+
+	'app_to_reg' => array(
+		"INSERT INTO app_to_reg VALUES(12693152, 'Joel', 'Klein', 'jdk514@gwmail.gwu.edu', 'l8qWdofxJK', 'MS');"
+	),
 );
 
 

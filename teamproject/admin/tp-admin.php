@@ -250,7 +250,7 @@ function get_and_add_new_users_app() {
 	if( !SINGLE ) {
 		$tpapp_query = new TP_Query( 'jdk514', 's3cr3t201e', 'jdk514' );
 		$tpapp_query->connect();
-		
+
 		$all_new_users = $tpapp_query->query( $query );
 	} else {
 		$all_new_users = $tp_query->query( $query );
@@ -262,12 +262,27 @@ function get_and_add_new_users_app() {
 		$email = $new_user['email'];
 		$pass = $new_user['loginpassword'];
 		//$user_name = $new_user['studentid'];
-		$user_name = strtolower( substr( $new_user['firstname'], 0, 0 ) );
+		$user_name = strtolower( substr( $new_user['firstname'], 0, 1 ) );
 		$user_name .= strtolower( $new_user['lastname'] );
 		//This is not really useful yet.
 		$degree_sough = $new_user['dsought'];
 
-		$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (1, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+		$query = "SELECT * FROM tp_users WHERE user_pass = '$pass';";
+
+		$has_user = $tp_query->query( $query );
+		if( !empty( $has_user ) )
+			continue;
+
+		//Check if username exists
+		$query = "SELECT COUNT(*) FROM tp_users WHERE user_name LIKE '%$user_name%'";
+		$number = (int)array_shift(array_shift($tp_query->query($query)));
+		
+		if( $number == 0 )
+			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (null, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+		else {
+			$user_name = $user_name . $number;
+			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (null, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+		}
 
 		$tp_query->query( $query );
 	}
