@@ -114,6 +114,7 @@ function show_user_links() {
 		break;
 
 	}
+	echo '<li><a href="' . SITE_ABS . 'views/user_management/user_edit.php">Manage Profile</a>';
 	echo '</ul>';
 
 }
@@ -138,6 +139,7 @@ function show_user_top_links() {
 		break;
 
 	}
+	echo '<li><a href="' . SITE_ABS . 'views/user_management/user_edit.php">Manage Profile</a>';
 	echo '<li><a href="' . SITE_ABS . '/index.php?logout">Logout</a>';
 	echo '</ul>';
 }
@@ -250,7 +252,7 @@ function get_and_add_new_users_app() {
 	if( !SINGLE ) {
 		$tpapp_query = new TP_Query( 'jdk514', 's3cr3t201e', 'jdk514' );
 		$tpapp_query->connect();
-		
+
 		$all_new_users = $tpapp_query->query( $query );
 	} else {
 		$all_new_users = $tp_query->query( $query );
@@ -262,13 +264,36 @@ function get_and_add_new_users_app() {
 		$email = $new_user['email'];
 		$pass = $new_user['loginpassword'];
 		//$user_name = $new_user['studentid'];
-		$user_name = strtolower( substr( $new_user['firstname'], 0, 0 ) );
+		$user_name = strtolower( substr( $new_user['firstname'], 0, 1 ) );
 		$user_name .= strtolower( $new_user['lastname'] );
 		//This is not really useful yet.
 		$degree_sough = $new_user['dsought'];
 
-		$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (1, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+		$query = "SELECT * FROM tp_users WHERE user_pass = '$pass';";
 
+		$has_user = $tp_query->query( $query );
+		if( !empty( $has_user ) )
+			continue;
+
+		//Check if username exists
+		$query = "SELECT COUNT(*) FROM tp_users WHERE user_name LIKE '%$user_name%'";
+		$number = (int)array_shift(array_shift($tp_query->query($query)));
+		
+		if( $number == 0 )
+			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (1, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+		else {
+			$user_name = $user_name . $number;
+			$query = "INSERT INTO tp_users (address_id, fname, lname, user_name, user_pass, user_email, role_id) VALUES (1, '$fname', '$lname', '$user_name', '$pass', '$email', 1 );";
+		}
+
+		$tp_query->query( $query );
+
+		$query = "SELECT uid FROM tp_users WHERE user_name = '$user_name'";
+		$user_id = $tp_query->query( $query );
+
+		$user_id = $user_id[0]['uid'];
+
+		$query = "INSERT INTO tp_users_meta(user_id, meta_key, meta_val) VALUES ($user_id, 'course_hold', '1');";
 		$tp_query->query( $query );
 	}
 

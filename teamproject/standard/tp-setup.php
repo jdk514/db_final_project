@@ -131,7 +131,7 @@ class TP_Setup {
 		), /* END OF TEAM 16 TABLES */
 
 		'Student' => array(
-			'studentid int (8) Primary Key,',
+			'studentid INT Primary Key,',
     		'firstname Varchar (64) not null,',
     		'lastname Varchar (64) not null,',
 			'email Varchar (50) not null,',
@@ -140,40 +140,38 @@ class TP_Setup {
     	),
 
     	'Recommendation' => array(
-			'Recid int(8) NOT NULL auto_increment,',
-			'studentid int(8) default NULL,',
-			'Authorname varchar(64) NOT NULL default \'\',',
+			'Recid int(8) PRIMARY KEY,',
+			'studentid INT default NULL,',
+			'Authorname varchar(64) NOT NULL default "",',
 			'Authortitle varchar(30) default NULL,',
-			'Authoremail varchar(64) NOT NULL default \'\',',
+			'Authoremail varchar(64) NOT NULL default "",',
 			'Content text NOT NULL,',
 			'Affiliation varchar(200) default NULL,',
 			'rate varchar(250) default NULL,',
-			'PRIMARY KEY  ("Recid"),',
-			'KEY "studentid" ("studentid")'
+			'FOREIGN KEY (studentid) REFERENCES Student(studentid)',
 		),
-
+    	
 		'Transcript' => array(
 			'transid int(8) Primary Key,',
-			'studentid int(8),',
+			'studentid INT,',
 			'undergpa DECIMAL(4,2) not null,',
 			'gre int (4),',
 			'greverbal int (4),',
 			'greana int (4),',
 			'grequan int (4),',
 			'tofel int (3),',
-			'FOREIGN KEY (studentid) references Student'
+			'FOREIGN KEY (studentid) references Student(studentid)'
 		),
-
+		
 		'app_to_reg' => array(
-			'studentid int(8) NOT NULL default "0",',
-		  	'firstname varchar(64) NOT NULL default "",',
-		  	'lastname varchar(64) NOT NULL default "",',
-		  	'email varchar(50) NOT NULL default "",',
-		  	'loginpassword varchar(50) NOT NULL default "",',
-		  	'dsought varchar(10) NOT NULL default ""',
-		  	'PRIMARY KEY ("studentid")'
+			'studentid INT Primary Key,',
+		  	'firstname varchar(64) NOT NULL,',
+		  	'lastname varchar(64) NOT NULL,',
+		  	'email varchar(50) NOT NULL,',
+		  	'loginpassword varchar(50) NOT NULL,',
+		  	'dsought varchar(10) NOT NULL',
 		),
-
+		
 		'GA' => array(
 			'gsid int (8) Primary Key,',
 			'loginpassword Varchar (50) not null'
@@ -181,13 +179,13 @@ class TP_Setup {
 
 		'Reviewers' => array(
 			'reviewerid int (8) Primary Key,',
-			'loginpassword Varchar (50) not null,'
+			'loginpassword Varchar (50) not null'
 		),
 
 		'Applications' => array(
-  			'applicationid int(8) NOT NULL default "0",',
+  			'applicationid int(8) PRIMARY KEY,',
 			'aoi varchar(250) default NULL,',
-			'studentid int(8) default NULL,',
+			'studentid INT default NULL,',
 			'dsought varchar(250) default NULL,',
 			'pd varchar(250) default NULL,',
 			'pmj varchar(250) default NULL,',
@@ -205,9 +203,92 @@ class TP_Setup {
 			'bday varchar(11) default NULL,',
 			'reviewcom varchar(250) default NULL,',
 			'reviewsug varchar(250) default NULL,',
-			'PRIMARY KEY ("applicationid"),',
-			'KEY "studentid" ("studentid"),'
-		)
+			'FOREIGN KEY (studentid) REFERENCES Student(studentid)'
+		), /* End Team 11 */
+
+		'Students' => array (
+			'GWUID     varchar(60) primary key,',
+		   	'Fname     varchar(60),',
+		   	'Lname     varchar(60),',
+		   	'GPA varchar(60),',
+		    'Email    varchar(60),',
+		    'Degree   varchar(60),',
+		   	'PhoneNum  varchar(20),',
+		   	'Address   varchar(60),',
+		   	'Semester  varchar(60),',
+		   	'Year      int(10)',
+		),
+
+		'Alumni' => array(
+			'GWUID     varchar(60) primary key,',
+		   	'Fname     varchar(60),',
+		   	'Lname     varchar(60),',
+		   	'GPA	     varchar(60),',
+		    'Email    varchar(60),',
+		    'Degree   varchar(60),',
+		   	'PhoneNum  varchar(20),',
+		   	'Address   varchar(60),',
+		   	'DegreeType  varchar(60),',
+		   	'YearGrad  varchar(60)'
+		),
+
+		'CourseRegistration' => array(
+			'CourseID     varchar(60),',
+			'CourseNum varchar(60),',
+		   	'Title  varchar(60),',
+		   	'CreditHrs    int(10),',
+		   	'ClassDay     varchar(60),',
+		   	'ClassTime    varchar(60),',
+		   	'InameF       varchar(60),',
+		   	'InameL       varchar(60)',
+		),
+
+		'CoursePrerequisites' => array(
+			'CourseNum 	 varchar(60) primary key,',
+		   	'MainPrereq    varchar(60),',
+		   	'SecPrereq  	 varchar(60)'
+		),
+		
+		'Grades' => array(
+			'GPA         varchar(60),',
+		   	'Semester    varchar(60),',
+		   	'Year        int(10),',
+		   	'CourseID    varchar(60),',
+		   	'CreditHrs   varchar(60),',
+   			'GWUID	   varchar(60) primary key',
+   		),
+
+   		'Advisors' => array(
+			'AdvID varchar(60) PRIMARY KEY,',
+   			'AnameF     varchar(60),',
+   			'AnameL     varchar(60)',
+   		),
+
+   		'Form1' => array( 
+			'GWUID varchar(60),',
+		   	'Degree varchar(60),',
+		   	'CourseID varchar(60),',
+			'PRIMARY KEY (CourseID, GWUID)',
+		),
+
+		'PendingRequests' => array(
+		   'GWUID   varchar(60) primary key,',
+		   'Fname   varchar(60),',
+		   'Lname  varchar(60)',
+		),
+
+		'RequiredCourses' => array(
+			'Degree	varchar(60),',
+			'CourseID varchar(60) primary key'
+		),
+
+		'DegreeReqs' => array(
+			'Degree varchar(60) NOT NULL primary key,',
+			'NumBadGrades varchar(60),',
+			'NumReqCourses varchar(60),',
+			'MinGpa varchar(60),',
+			'LowGrade varchar(60)'
+		),
 	);
 
 	function listen_for_setup() {
