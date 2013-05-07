@@ -10,6 +10,7 @@
   <h4>Students on Hold</h4>
   <?php
   session_start();
+  
 
 //Connect to the database
 $dbc = mysql_connect("localhost", "cojennin", "Swnny.D8y!")
@@ -36,17 +37,22 @@ print "Here is the list of students who have a hold on their account. Select a s
 	//Pull the id of each student in table
 	$checkbox = ' ';
 	$i = 0;
+	print '<table border="1">';
+	print "<tr><td> Student ID <td> First Name <td> Last Name <td> View Courses";
 	while ($row = mysql_fetch_array($result)){
+		print "<tr>";
 		$getGWUID = $row['uid'];
-		print "$getGWUID	" . $row['fname'] . "	" . $row['lname'] . "	";		
+		print "<td>$getGWUID  ";
+		print "<td> " .$row['fname'];
+		print "<td> ". $row['lname'];		
 		//Insert unique check box, title = GWUID
-		echo '<tr>';
 		$checkbox = "<td><input name='$getGWUID' type='checkbox' id='checkbox[]' value='approved'></td><br>";
 		echo  $checkbox;
-		echo'<tr>';
 		print "<br>";
 		$i++;
 		}
+		
+print "</table>";
 if ($i ==0) print "No students on hold<br>";
 else {
 print '<input type="submit" value="Submit" name="submit" />';
@@ -57,14 +63,10 @@ print '</form>';
 print "<h4>Your Students:</h4>";
 
 
-
-
-
-
-print "Here are the list of your students. Select a student to view their transcript. You can also search for a record below.";
+print "Here are the list of the students you are advising. Select a student to view their transcript. You can also search for a record below.";
 
 //Query database get advisor's students
-	  $query = "Select * FROM Students, tp_student_advisors WHERE advisor_id = '$AdvID'";
+	  $query = "Select  * FROM tp_users, tp_student_advisors WHERE advisor_id = '$AdvID' AND role_id=1 AND uid = user_id";
 	  
 	  //Store the output of the query
 	  $result = mysql_query($query)
@@ -78,25 +80,45 @@ print '<form method="post" action="view_transcript.php">';
 	$button = ' ';
 	$j = 0;
 	
-// while ($row = mysql_fetch_array($result)) {
-// 		$getGWUID = $row['user_id'];
-// 		print "$getGWUID	" . $row['Fname'] . "	" . $row['Lname'] . "	";		
-// 		//Insert unique  radio, title = GWUID
-// 		echo '<tr>';
-// 		print '<input type="radio" name="group" value="$getGWUID" checked> View<br>';
-// 		echo '<tr>';
-// 		print "<br>";
-// 		$j++;
-// 		}
+print '<table border="1">';
+print "<tr><td> Student ID <td> First Name <td> Last Name <td> View Transcript";	
+while ($row = mysql_fetch_array($result)) {
+		print "<tr>";
+		$getGWUID = $row['uid'];
+		print "<td>$getGWUID  ";
+		print "<td> " .$row['fname'];
+		print "<td> ". $row['lname'];			
+		//Insert unique  radio, title = GWUID
+		echo '<td>';
+		print '<input type="radio" name="StudentID" value="'.$getGWUID.'" checked> View<br>';
+		print "<br>";
+		$j++;
+		}
+print "</table>";
 
 		
 if ($j == 0) print "You are not advising any students<br>";
 else {
 print '<input type="submit" value="View Transcript" name="submit" />';
 }
-print '</form>';
-}
+print '</form><br><br>';
 
+
+print "<h4> Search for any registered student: <h4>";
+
+//Search for a specific student
+print ' <form method="post" action="AdvisorSearch.php">
+    <label for="Search">Search:</label>
+    <input type="text" id="Search" name="Search" /><br /><br />
+        
+    <label for="group3">Search by:</label><br>
+    <input type="radio" name="group3" value="0" checked> GWU ID<br>
+    <input type="radio" name="group3" value="1"> First Name<br>
+    <input type="radio" name="group3" value="2"> Last Name<br>
+ 
+    <br>
+    <input type="submit" value="Search" name="submit" />
+  </form>';
 ?>
 
 

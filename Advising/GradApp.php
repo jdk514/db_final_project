@@ -152,7 +152,9 @@ $badGrades = 0;
 	while ($row = mysql_fetch_array($result)) {
 	
 		$transcriptCoursesNums[$i] = $row['cdid'];
+// 		echo "********$transcriptCoursesNums[$i]";
 		$transcriptCourses[$i] = $row['dept_name'] . ' ' . $row['dept_num'];
+		$i++;
 		
 		//Add "quality points"
 			$getGrade = $row['course_grade'];
@@ -205,17 +207,19 @@ for ($i=0; $i<count($form1Courses); $i++) {
 			//Check for a "bad" grade for the form1 course
 
 			$query = "Select * FROM tp_transcript_courses, tp_course_dept				   
-			WHERE user_id = '$GWUID' AND course_id = '$transcriptCoursesNum[$j]' AND  cdid = course_id";
+			WHERE user_id = '$GWUID' AND course_id = '$transcriptCoursesNums[$j]' AND  cdid = course_id";
 
+	echo $query;
+	
 			//Store the output of the query
 		  $result = mysql_query($query)
-			or die('Error querying database');		
+			or die('Error querying database(777)');		
 			
 			$getGrade = $row['course_grade'];
-			
-			echo "******Checking:<br>";
-			echo "Course: $transcriptCourses[$j]<br>";
-			echo "Grade: $getGrade<br>";
+	// 		
+// 			echo "******Checking:<br>";
+// 			echo "Course: $transcriptCourses[$j]<br>";
+// 			echo "Grade: $getGrade<br>";
 
 
 			
@@ -265,10 +269,9 @@ if ($approved) {
 		or die('Error querying database');
 		
 	$row = mysql_fetch_array($result);
-	$getGPA = $row['GPA'];
-  	print "<br>Your GPA: $getGPA<br>";
+	
   		
- 	if ($getGPA < 3.0)  {
+ 	if ($GPA < 3.0)  {
  	$approved = False;
 	$error =  'GPA is under 3.0  <br>';
 	}
@@ -291,7 +294,7 @@ if ($approved) {
 
 
 	print "<br> Congratulations! You have been electronically approved to graduate. 
-		An advisor will review your application shortly.<br>";
+		The Graduate Secretary will review your application shortly.<br>";
 		
 	//Add to pending graduates table
 	$query = "INSERT INTO PendingRequests values ('$GWUID', '$Fname', '$Lname')";
@@ -299,6 +302,14 @@ if ($approved) {
   	//Store the output of the query
 	  $result = mysql_query($query)
 		or die('Error querying database');
+		
+		//Store calculated GPA
+//Query the database to check that Form 1 has been submitted for the GWUID entered
+	  $query = "Update Students set GPA = '$GPA' WHERE GWUID = '$GWUID'"; 
+	
+	//Store the output of the query
+	$result = mysql_query($query)
+		or die('Error querying database(1)');  
 		}
 
 if (!$approved) {
@@ -310,6 +321,11 @@ if (!$approved) {
   
 exit;
 ?>
+
+    <br><br>
+    <button onclick="location.href='http://www.student.seas.gwu.edu/~awp1121/StudentLogin.php'">
+     Back</button>
+     <br><br>
 
 </body>
 </html>

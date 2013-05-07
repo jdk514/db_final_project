@@ -49,12 +49,50 @@ mysql_select_db("cojennin", $dbc);
 if ($login){
 //If there is a value entered, modify the entry in the Alumni table
 if ($newEmail != null) {
+
+//Check for valid email
+$valid = false;
+$atFound = false;
+$dotFound = false;
+
+if (strlen($newEmail) >= 5) {
+//Look for @ sign in email
+for ($i =1; $i<(strlen($newEmail)-3); $i++){
+	if (substr($newEmail, $i, 1) == '@') {
+		$atFound = true;
+			//Once @ is found, look for at least one dot
+			for ($j=$i+2; $j<(strlen($newEmail)-1); $j++){
+				if (substr($newEmail, $j, 1) == '.') {
+					$dotFound = true;
+					}
+					
+				//Not a valid email if there is more than one @ sign
+				if (substr($newEmail, $j, 1) == '@') {
+					$valid = false;
+					break;
+					}
+				}
+				break;
+			}
+		}
+		}
+
+if ($atFound && $dotFound) {
+	$valid = true;
+	}
+else echo "Invalid form for an email address. Address not updated<br>";
+	
+
+		
+
+if ($valid){
 echo "New Email: $newEmail<br>";
 	  $query = "Update Alumni SET Email = '$newEmail' WHERE GWUID = $GWUID";		
 
 	//Store the output of the query
 	  $result = mysql_query($query)
 		or die('Error querying database (10)');
+}
 }
 
 if ($newPhone != null) {

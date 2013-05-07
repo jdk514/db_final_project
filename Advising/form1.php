@@ -16,8 +16,7 @@ echo "YOUD ID: " . $GWUID . "<br>";
 
 
 
-
-//Connect to the databse
+//Connect to the database
 $dbc = mysql_connect("localhost", "cojennin", "Swnny.D8y!")
     or die('Error connecting to MySQL server.');
     
@@ -25,9 +24,9 @@ $dbc = mysql_connect("localhost", "cojennin", "Swnny.D8y!")
 mysql_select_db("cojennin", $dbc);
 
 
-  //Get post variables
-  $first_name = $_POST['firstname'];
-  $last_name = $_POST['lastname'];
+//   //Get post variables
+//   $first_name = $_POST['firstname'];
+//   $last_name = $_POST['lastname'];
   $error = 'Unkown';
   //Set default vaule of approved to true
   $approved = True;
@@ -59,15 +58,15 @@ mysql_select_db("cojennin", $dbc);
 //   }
   
   
-   if (strlen($last_name) < 2) {
-  		$approved = FALSE;
-  		$error = 'Please provide your Last Name.';
-  }
- 
- if (strlen($first_name) < 2) {
-  		$approved = FALSE;
-  		$error = 'Please provide your First Name.';
-  }
+   // if (strlen($last_name) < 2) {
+//   		$approved = FALSE;
+//   		$error = 'Please provide your Last Name.';
+//   }
+//  
+//  if (strlen($first_name) < 2) {
+//   		$approved = FALSE;
+//   		$error = 'Please provide your First Name.';
+//   }
 
 //If the form is filled out correctly check if valid student
   if ($approved) {
@@ -76,26 +75,27 @@ mysql_select_db("cojennin", $dbc);
 	  $query = "Select * FROM Students
 			WHERE GWUID = $GWUID";
 		
-
+		
 	//Store the output of the query
 	  $result = mysql_query($query)
 		or die('Error querying database (1000000)');
 	
-	//Pull the name of the
+	//Pull the name of the student
 	$row = mysql_fetch_array($result);
-	$getID = $row['GWUID'];
-	if (strlen($getID) < 1) {
-		$approved = false;
-		$error = 'Not a registered student. Please check your GWUID.';
-		
-	}
 	
-	$getFname = $row['Fname'];
-	$getLname = $row['Lname'];
-	if ((strcmp($getFname, $first_name) != 0) || (strcmp($getLname, $last_name) != 0)) {
-		$approved = false;
-		$error = 'Name does not match name in database. Please enter your legal name';
-	}
+// 	
+// 	$getID = $row['GWUID'];
+// 	if (strlen($getID) < 1) {
+// 		$approved = false;
+// 		$error = 'Not a registered student. Please contact the system administrator.';
+// 	}
+	
+// 	$getFname = $row['Fname'];
+// 	$getLname = $row['Lname'];
+// 	if ((strcmp($getFname, $first_name) != 0) || (strcmp($getLname, $last_name) != 0)) {
+// 		$approved = false;
+// 		$error = 'Name does not match name in database. Please enter your legal name';
+// 	}
 
 }
 
@@ -217,6 +217,7 @@ if ($approved) {
 	  echo 'GWU ID: ' . $GWUID . '<br />';
 	  echo '<br />';
 	  echo 'Courses selected: ' . '<br />';
+	  	  
 	  
 	  for ($i=0; $i < count($selected_courses); $i++) {
   			echo $selected_courses[$i] . '<br />';
@@ -234,10 +235,14 @@ if ($approved) {
 if(!$approved) {
 	echo '<br>Your form has not been approved. <br />';
 	echo 'Reason: ' . $error. '<br />';
-	echo 'Please go back to correct this error and resubmit the form.';
+	echo 'Please go back to correct this error.';
 }
-exit;
 ?>
+     
+    <br><br>
+    <button onclick="location.href='http://www.student.seas.gwu.edu/~awp1121/StudentLogin.php'">
+     Back</button>
+     <br><br>
 
 </body>
 </html>

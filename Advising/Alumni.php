@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Pending Graduation Applications</title>
+  <title>Alumni Account Management</title>
 </head>
 <body>
   <h2>Alumni Account Management</h2>
@@ -64,16 +64,21 @@ $login = true;
 	echo "Zipcpde: ".$row['zipcode']. $checkbox6 . "<br>";
 	echo "City: ".$row['city']. $checkbox7 . "<br>";
 
-	$link = "location.href='http://www.student.seas.gwu.edu/~awp1121/view_transcript.php'";
-	echo "<button onclick=$link>";
-	echo "View your trasncript:</button>
-     <br><br>";
-
+	
 	echo '<input type="submit" value="Edit" name="submit" />';
 
 	echo "</form>";
+	
+	
+	print '<form method="post" action="alumni_transcript.php">';
+	echo '<input type="submit" value="View Transcript" name="submit" />';
+	$_SESSION['StudentID'] = $GWUID;
+	print '</form>';
+
 	}
 	?>
+
+
 </body>
 </html>
 

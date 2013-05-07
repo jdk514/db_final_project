@@ -11,7 +11,7 @@
   
 
   <p>Enter your information and desired courses (up to 12):</p>
-  <form method="post" action="form1.php">
+  <form method="post" action="Form1.php">
 <?php
   	session_start();
 
@@ -29,27 +29,27 @@
     <input type="text" id="GWUID" name="GWUID" /><br /><br />
  -->
     
-    <label for="courses">Enter Course 1:</label>
+   <label for="courses">Enter Course 1:</label>
     <input type="text" id="course1" name="course1" />
-    <label for="courses">Enter Course 7:</label>
-    <input type="text" id="course7" name="course7" /><br />
     <label for="courses">Enter Course 2:</label>
-    <input type="text" id="course2" name="course2" />
-    <label for="courses">Enter Course 8:</label>
-    <input type="text" id="course8" name="course8" /><br />
+    <input type="text" id="course7" name="course7" /><br />
     <label for="courses">Enter Course 3:</label>
-    <input type="text" id="course3" name="course3" />
-    <label for="courses">Enter Course 9:</label>
-    <input type="text" id="course9" name="course9" /><br />
+    <input type="text" id="course2" name="course2" />
     <label for="courses">Enter Course 4:</label>
-    <input type="text" id="course4" name="course4" />
-    <label for="courses">Enter Course 10:</label>
-    <input type="text" id="course10" name="course10" /><br />
+    <input type="text" id="course8" name="course8" /><br />
     <label for="courses">Enter Course 5:</label>
-    <input type="text" id="course5" name="course5" />
-    <label for="courses">Enter Course 11:</label>
-    <input type="text" id="course11" name="course11" /><br />
+    <input type="text" id="course3" name="course3" />
     <label for="courses">Enter Course 6:</label>
+    <input type="text" id="course9" name="course9" /><br />
+    <label for="courses">Enter Course 7:</label>
+    <input type="text" id="course4" name="course4" />
+    <label for="courses">Enter Course 8:</label>
+    <input type="text" id="course10" name="course10" /><br />
+    <label for="courses">Enter Course 9:</label>
+    <input type="text" id="course5" name="course5" />
+    <label for="courses">Enter Course 10:</label>
+    <input type="text" id="course11" name="course11" /><br />
+    <label for="courses">Enter Course 11:</label>
     <input type="text" id="course6" name="course6" />
     <label for="courses">Enter Course 12:</label>
     <input type="text" id="course12" name="course12" /><br /><br />

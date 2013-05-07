@@ -10,9 +10,7 @@
   <?php
     session_start();
 
-$StudentID = $_POST['StudentID'];
-
-echo "*******$StudentID<br>";
+$StudentID = $_SESSION['StudentID'];
     
 
 //Connect to the database
@@ -24,7 +22,7 @@ mysql_select_db("cojennin", $dbc);
 
 	  //Get student's Transcript courses from the database
 	$query = "Select * FROM tp_users, tp_transcript_courses, tp_course_dept, tp_course			   
-			WHERE user_id = '$StudentID' AND  cdid = course_id AND cdid = cid AND uid = user_id";
+			WHERE user_id = $StudentID AND  cdid = course_id AND cdid = cid AND uid = user_id";
 	  
 	  //Store the output of the query
 	  $result = mysql_query($query)
