@@ -33,7 +33,7 @@ include_once 'admin/tp-admin.php';
 			</div>
 
 			<ul id="header-navigation" class="cf">
-				<li><a href="<?php echo SITE_ABS; ?>">Home</a></li>
+				<li><a href="../index.php">Home</a></li>
 				<li><a href="<?php echo schedule_dir() . 'schedule.php'; ?>">Schedule of Classes</a></li>
 				<?php
 					global $pagenow;

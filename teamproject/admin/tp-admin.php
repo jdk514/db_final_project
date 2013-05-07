@@ -245,19 +245,25 @@ function change_grades() {
 function get_and_add_new_users_app() {
 	global $tp_query; 
 
-	$tpapp_query = new TP_Query( 'jdk514', 's3cr3t201e', 'jdk514' );
-	$tpapp_query->connect();
-
 	$query = "SELECT * FROM app_to_reg;";
 
-	$all_new_users = $tpapp_query->query( $query );
+	if( !SINGLE ) {
+		$tpapp_query = new TP_Query( 'jdk514', 's3cr3t201e', 'jdk514' );
+		$tpapp_query->connect();
+		
+		$all_new_users = $tpapp_query->query( $query );
+	} else {
+		$all_new_users = $tp_query->query( $query );
+	}
 
 	foreach( $all_new_users as $new_user ) {
 		$fname = $new_user['firstname'];
 		$lname = $new_user['lastname'];
 		$email = $new_user['email'];
 		$pass = $new_user['loginpassword'];
-		$user_name = $new_user['studentid'];
+		//$user_name = $new_user['studentid'];
+		$user_name = strtolower( substr( $new_user['firstname'], 0, 0 ) );
+		$user_name .= strtolower( $new_user['lastname'] );
 		//This is not really useful yet.
 		$degree_sough = $new_user['dsought'];
 

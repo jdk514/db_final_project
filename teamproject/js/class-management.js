@@ -24,10 +24,10 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$('#active-course-list, #pending-course-list').on('click', '.remove-course', function() {
+	$('#active-course-list, #pending-course-list, #hold-course-list').on('click', '.remove-course', function() {
 		var outer_this = $(this);
 		var info = {};
-		info.class_id = $(this).parent().attr('id').replace(/pending-course-id-|active-course-id-/g, '');
+		info.class_id = $(this).parent().attr('id').replace(/pending-course-id-|active-course-id-|hold-course-id-/g, '');
 		info.func_to_call = 'ajax_move_class_to_removed';
 		$.ajax({
 		  url: site_abs + "standard/tp-ajax.php",
@@ -39,7 +39,7 @@ $(document).ready(function(){
 		  }
 		  remove_course( outer_this );
 		})
-		.fail(function(data) {console.log(data)});
+		.fail(function(data) {console.log("Failure:", data)});
 
 		return false;
 	});
@@ -49,9 +49,18 @@ $(document).ready(function(){
 	}
 
 	function add_course_to_active(li_html, clicked_link) {
-		var li = li_html.replace('html:', '').replace(' ', '');
-		$('#active-course-list').append($(li));
+		var li;
+
+		if( li_html.indexOf('active-html:') === -1 ) {
+			li = li_html.replace('hold-html:', '').replace(' ', '');
+			$('#hold-course-list').append($(li));
+		} else {
+			li = li_html.replace('active-html:', '').replace(' ', '');
+			$('#active-course-list').append($(li));
+		}
+
 		clicked_link.parent().remove();
+		$('#submit_approval').show();
 	}
 
 	function remove_course( clicked_link ) {

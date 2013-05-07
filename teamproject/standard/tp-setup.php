@@ -39,12 +39,12 @@ class TP_Setup {
 			'cid INT PRIMARY KEY AUTO_INCREMENT,',
 			'course_num INT,',
 			'title VARCHAR(100),',
-			'semester VARCHAR(50),',
+			//'semester VARCHAR(50),',
 			'credits INT,',
 			'status VARCHAR(75),',
 			'class_time VARCHAR(75),',
 			'class_day VARCHAR(15),',
-			'year VARCHAR(10),',
+			//'year VARCHAR(10),',
 			'FOREIGN KEY (course_num) REFERENCES tp_course_dept(cdid)'
 		), 
 		'tp_degree' => array(
@@ -85,6 +85,8 @@ class TP_Setup {
 			'cbtid INT PRIMARY KEY AUTO_INCREMENT,',
 			'user_id INT NOT NULL,',
 			'course_id INT NOT NULL,',
+			'year VARCHAR(10) NOT NULL,',
+			'semester VARCHAR(10) NOT NULL,',
 			'status VARCHAR(20),',
 			'FOREIGN KEY (user_id) REFERENCES tp_users(uid),',
 			'FOREIGN KEY (course_id) REFERENCES tp_course(cid)',
@@ -126,7 +128,86 @@ class TP_Setup {
 			'meta_key VARCHAR(200),',
 			'meta_val VARCHAR(250),',
 			'FOREIGN KEY (user_id) REFERENCES tp_users(uid)',
+		), /* END OF TEAM 16 TABLES */
+
+		'Student' => array(
+			'studentid int (8) Primary Key,',
+    		'firstname Varchar (64) not null,',
+    		'lastname Varchar (64) not null,',
+			'email Varchar (50) not null,',
+    		'loginpassword  Varchar (50) not null,',
+    		'studentstatus Varchar (10) not null'
+    	),
+
+    	'Recommendation' => array(
+			'Recid int(8) NOT NULL auto_increment,',
+			'studentid int(8) default NULL,',
+			'Authorname varchar(64) NOT NULL default \'\',',
+			'Authortitle varchar(30) default NULL,',
+			'Authoremail varchar(64) NOT NULL default \'\',',
+			'Content text NOT NULL,',
+			'Affiliation varchar(200) default NULL,',
+			'rate varchar(250) default NULL,',
+			'PRIMARY KEY  ("Recid"),',
+			'KEY "studentid" ("studentid")'
 		),
+
+		'Transcript' => array(
+			'transid int(8) Primary Key,',
+			'studentid int(8),',
+			'undergpa DECIMAL(4,2) not null,',
+			'gre int (4),',
+			'greverbal int (4),',
+			'greana int (4),',
+			'grequan int (4),',
+			'tofel int (3),',
+			'FOREIGN KEY (studentid) references Student'
+		),
+
+		'app_to_reg' => array(
+			'studentid int(8) NOT NULL default "0",',
+		  	'firstname varchar(64) NOT NULL default "",',
+		  	'lastname varchar(64) NOT NULL default "",',
+		  	'email varchar(50) NOT NULL default "",',
+		  	'loginpassword varchar(50) NOT NULL default "",',
+		  	'dsought varchar(10) NOT NULL default ""',
+		  	'PRIMARY KEY ("studentid")'
+		),
+
+		'GA' => array(
+			'gsid int (8) Primary Key,',
+			'loginpassword Varchar (50) not null'
+		),
+
+		'Reviewers' => array(
+			'reviewerid int (8) Primary Key,',
+			'loginpassword Varchar (50) not null,'
+		),
+
+		'Applications' => array(
+  			'applicationid int(8) NOT NULL default "0",',
+			'aoi varchar(250) default NULL,',
+			'studentid int(8) default NULL,',
+			'dsought varchar(250) default NULL,',
+			'pd varchar(250) default NULL,',
+			'pmj varchar(250) default NULL,',
+			'pdu varchar(250) default NULL,',
+			'pgpa varchar(250) default NULL,',
+			'pd2 varchar(250) default NULL,',
+			'pmj2 varchar(250) default NULL,',
+			'pdu2 varchar(250) default NULL,',
+			'pgpa2 varchar(250) default NULL,',
+			'subdate timestamp NULL default CURRENT_TIMESTAMP,',
+			'workex varchar(250) default NULL,',
+			'desdate varchar(250) default NULL,',
+			'essayanswer text,',
+			'astatus varchar(25) default NULL,',
+			'bday varchar(11) default NULL,',
+			'reviewcom varchar(250) default NULL,',
+			'reviewsug varchar(250) default NULL,',
+			'PRIMARY KEY ("applicationid"),',
+			'KEY "studentid" ("studentid"),'
+		)
 	);
 
 	function listen_for_setup() {

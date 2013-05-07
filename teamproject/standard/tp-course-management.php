@@ -3,7 +3,7 @@
 function generate_grade_dropdown( $course_active = false ) {
 	$grades = array('A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'D', 'F');
 	?>
-		<select name="course_grade">
+		<select name="course_grade[]">
 		<?php if( $course_active == true ) { 
 			echo '<option value="IP">IP</option>';
 		} ?>
@@ -47,12 +47,15 @@ function user_add_course(  $cid, $uid, $status ) {
 	if( !isset( $cid ) && !isset( $uid ) )
 		return false;
 
+	$year = get_option('active_year');
+	$semester = get_option('active_semester');
+
 	if( user_has_course( $cid, $uid, 'pending' ) === 'pending' )
 		return true;
 
 	global $tp_query;
 
-	$query = "INSERT INTO tp_course_being_taken(user_id, course_id, status) VALUES ( $uid, $cid, '$status' );";
+	$query = "INSERT INTO tp_course_being_taken(user_id, course_id, year, semester, status) VALUES ( $uid, $cid, '$year', '$semester', '$status' );";
 	$query_info = $tp_query->query( $query );
 
 	return $query_info;
@@ -166,6 +169,9 @@ function move_course_from_pending_to_active( $cid, $uid ) {
 		if( $add_time_am_pm != $class_time_am_pm )
 			continue;
 
+		if( $class_time_day['class_day'] != $class_to_add_time['class_day'] )
+			continue;
+
 		//If the end time of a class is within the time of another class, not good
 		if ( strtotime( $add_time_end ) >= strtotime( $class_time_start ) && strtotime( $add_time_end ) <= strtotime( $class_time_end ) )
 			return array('error' => 'Time conflict on ' . $class_time_day['class_day'] . ' at ' . $class_time_day['class_time'] ); 
@@ -176,7 +182,12 @@ function move_course_from_pending_to_active( $cid, $uid ) {
 
 	}
 
-	$query = "UPDATE tp_course_being_taken SET status = 'active' WHERE course_id = $cid AND user_id = $uid AND status = 'pending';";
+	if( get_user_meta( $uid, 'course_hold') === '1' ) {
+		$query = "UPDATE tp_course_being_taken SET status = 'on_hold' WHERE course_id = $cid AND user_id = $uid AND status = 'pending';";
+	} else {
+		$query = "UPDATE tp_course_being_taken SET status = 'active' WHERE course_id = $cid AND user_id = $uid AND status = 'pending';";
+	}
+
 	$tp_query->query( $query );
 
 	return true;
@@ -196,6 +207,40 @@ function get_active_courses ( $uid ) {
 
 }
 
+function get_hold_or_approval ( $uid ) {
+	if( !isset( $uid ) )
+		return false;
+
+	global $tp_query;
+
+	$query = "SELECT COUNT(*) FROM tp_course_being_taken WHERE status = 'on_hold' AND user_id = $uid;";
+	$num_courses_active = $tp_query->query( $query );
+	$num_courses_active = $num_courses_active[0];
+
+	return array_shift( $num_courses_active );
+
+}
+
+function student_has_prereqs( $student_id, $course_id ) {
+
+	global $tp_query;
+
+	$query = "SELECT * FROM tp_course WHERE cid = ANY( SELECT prereq_id FROM tp_course_has_prereqs WHERE tp_course_has_prereqs.course_id = $course_id );";
+	$prereqs = $tp_query->query( $query );
+
+	$no_prereqs = array();
+
+	foreach( $prereqs as $prereq ) {
+		$pre_id = $prereq['cid'];
+		$query = "SELECT * FROM tp_transcript_courses WHERE user_id = $student_id AND course_id = $pre_id;";
+		$course_taken = $tp_query->query( $query );
+		if( empty( $course_taken ) ) {
+			$no_prereqs[] = $pre_id;
+		}
+	}
+	return $no_prereqs;
+}
+
 function move_course_to_removed( $cid, $uid ) {
 	if( !isset( $uid ) || !isset( $cid ) )
 		return false;
@@ -207,4 +252,35 @@ function move_course_to_removed( $cid, $uid ) {
 
 	return true;
 
+}
+
+function submitted_for_approval() {
+	global $tp_user; 
+
+	$for_approval = get_user_meta( $tp_user->uid, 'waiting_approval');
+
+	if( $for_approval === '1' ) 
+		return true;
+	else
+		return false;
+}
+
+function courses_on_hold_or_approval() {
+	global $tp_user, $tp_query;
+
+	$user_id = $tp_user->uid;
+	$query = "SELECT * FROM tp_course_being_taken WHERE user_id = $user_id AND (status = 'on_hold' OR status = 'waiting_approval');";
+
+
+	$hold_courses = array_values( $tp_query->query( $query ) );
+	$hold_courses_info = array();
+	foreach( $hold_courses as $course_id ) {
+		$course_id = $course_id['course_id'];
+		$query = "SELECT * FROM tp_course WHERE cid = $course_id;";
+		$course = $tp_query->query( $query );
+		$course_info = $course[0];
+		$hold_courses_info[] = $course_info;
+	}
+
+	return $hold_courses_info;
 }

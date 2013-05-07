@@ -12,7 +12,7 @@
  * Inspired by ezSQL.
  */
 
-include_once 'tp_error.php';
+include_once 'tp-error.php';
 
 class TP_Query{
 	var $tpq_user;

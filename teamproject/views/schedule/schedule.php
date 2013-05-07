@@ -6,7 +6,7 @@ include_once '../../header.php';
 else
 	include('course-department.php');
 */
-include('semester-year-list.php');
+include('course-list.php');
 
  ?>
 

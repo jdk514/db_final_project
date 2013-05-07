@@ -57,5 +57,28 @@ function get_role_info( $rid ) {
 
 }
 
+function get_user_meta( $user_id, $meta_key ) {
+	global $tp_query;
+
+	$query = "SELECT meta_val FROM tp_users_meta WHERE meta_key = '$meta_key' AND user_id = $user_id;";
+	$get = $tp_query->query( $query );
+
+	if( !empty( $get ) )
+		return $get[0]['meta_val'];
+	else
+		return false;
+}
+
+function set_user_meta( $user_id, $meta_key, $meta_val ) {
+	global $tp_query;
+
+	if (! get_user_meta( $user_id, $meta_key ) ) {
+		$query = "INSERT INTO tp_users_meta ( user_id, meta_key, meta_val) VALUES( $user_id, '$meta_key', '$meta_val' );";
+	} else {
+		$query = "UPDATE tp_users_meta SET meta_val = $meta_val WHERE meta_key = '$meta_key' AND user_id = $user_id;";
+	}
+	$tp_query->query( $query );
+}
+
 if( isset( $_SESSION['user_login'] ) )
 	create_user( $_SESSION['user_login'] );
