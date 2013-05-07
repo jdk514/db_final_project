@@ -1,30 +1,6 @@
-<html>
-<style>
-body {
-    margin: 50px 0px;
-    padding: 10px;
-    text-align: center;
-}
-
-div#main {
-    width: 600px;
-    margin: 0px auto;
-    padding: 15px;
-    background-color: lightblue;
-    text-align: center;
-    box-shadow: 10px 10px 5px #888888;
-}
-div#header{
-	width: 600px;
-	margin: 0px auto;
-	text-align: center;
-	padding: 15px 15px 15px 15px;
-}
-div#select{
-	padding: 15px 15px;}
-</style>
 <?php
-	session_start();
+include 'header.php';
+session_start();
 
 	if(!empty($_POST)){//check to see if we have updated the fields
 		update_query($_POST);//if it has we should update the db to reflect alterations
@@ -96,66 +72,67 @@ div#select{
 	    }
 	}
 ?>
-<head>
-	<?php if ($_SESSION["login_GA"] == "true") :?>
-	<body class="body">
-		<div id="header">
-			GA Page
-		<div id="main">
-			<form name="search_status" action="ga_page.php" method="get">
-				<input type="text" name="search_name" value="Search For a Name">
-				<input type="submit" Value="Search">
-			</form>
-			<form name="status_update" action="ga_page.php" method="post"><!--form that is used to submit status alterations-->
-				<?php
-					$students = query();
-					if(!empty($_GET["search_name"])){
-						$search = single_query($_GET["search_name"]);
-						?>
-						<div style="overflow-y:scroll; height:200px">
+	<div id="main">
+		<div id="content">
+			<?php if ($_SESSION["login_GA"] == "true") :?>
+				<div style="text-align:center">
+					GA Page
+				<div>
+					<form name="search_status" action="ga_page.php" method="get">
+						<input type="text" name="search_name" value="Search For a Name">
+						<input type="submit" Value="Search">
+					</form>
+					<form name="status_update" action="ga_page.php" method="post"><!--form that is used to submit status alterations-->
 						<?php
-						foreach($search as $std => $value){
+							$students = query();
+							if(!empty($_GET["search_name"])){
+								$search = single_query($_GET["search_name"]);
+								?>
+								<div style="overflow-y:scroll; height:200px">
+								<?php
+								foreach($search as $std => $value){
+								?>
+									<div id="select">
+										<?php echo ($value[1]." ".$value[2]." is ");?>
+										<select name="<?php print $value[0];?>">
+											<option><?php print $value[3]; ?></option>
+											<option>Waiting for Review</option>
+											<option>Accepted</option>
+											<option>Rejected</option>
+										</select></br>
+									</div>
+									<?php
+								}
+								?></div><?php
+							}else{
+								?>
+								<div style="overflow-y:scroll; height:200px">
+								<?php
+								foreach($students as $std => $value){
+								?>
+								<div id="select">
+									<?php echo ($value[1]." ".$value[2]." is ");?>
+									<select name="<?php print $value[0];?>">
+										<option><?php print $value[3]; ?></option>
+										<option>Waiting for Review</option>
+										<option>Accepted</option>
+										<option>Rejected</option>
+									</select></br>
+								</div>
+								<?php
+								}
+								?></div><?php
+							}
 						?>
-							<div id="select">
-								<?php echo ($value[1]." ".$value[2]." is ");?>
-								<select name="<?php print $value[0];?>">
-									<option><?php print $value[3]; ?></option>
-									<option>Waiting for Review</option>
-									<option>Accepted</option>
-									<option>Rejected</option>
-								</select></br>
-							</div>
-							<?php
-						}
-						?></div><?php
-					}else{
-						?>
-						<div style="overflow-y:scroll; height:200px">
-						<?php
-						foreach($students as $std => $value){
-						?>
-						<div id="select">
-							<?php echo ($value[1]." ".$value[2]." is ");?>
-							<select name="<?php print $value[0];?>">
-								<option><?php print $value[3]; ?></option>
-								<option>Waiting for Review</option>
-								<option>Accepted</option>
-								<option>Rejected</option>
-							</select></br>
-						</div>
-						<?php
-						}
-						?></div><?php
-					}
-				?>
-				<p>To see Student Reviews <a href="galist.php">click here.</a><br/><br/>
-				<input type="submit" Value="Submit">
-			</form>
+						<p>To see Student Reviews <a href="galist.php">click here.</a><br/><br/>
+						<input type="submit" Value="Submit">
+					</form>
+				</div>
+		<?php else : ?>
+			<script>
+				window.location = "login.php"
+			</script>
+		<?php endif ?>
+			</div>
 		</div>
-	</body>
-<?php else : ?>
-	<script>
-		window.location = "login.php"
-	</script>
-<?php endif ?>
-</head>
+<?php include 'footer.php'; ?>
