@@ -219,6 +219,12 @@ $email2=htmlspecialchars(trim($_POST["email2"]));
 $af3=htmlspecialchars(trim($_POST["af3"]));
 $af4=htmlspecialchars(trim($_POST["af4"]));
 $af5=htmlspecialchars(trim($_POST["af5"]));
+$title1=htmlspecialchars(trim($_POST["title1"]));
+$title2=htmlspecialchars(trim($_POST["title2"]));
+$title3=htmlspecialchars(trim($_POST["title3"]));
+$recname1=htmlspecialchars(trim($_POST["recname1"]));
+$recname2=htmlspecialchars(trim($_POST["recname2"]));
+$recname3=htmlspecialchars(trim($_POST["recname3"]));
 
 
 
@@ -243,9 +249,9 @@ if($err!=1) {
 $query=$db->query("insert into Student (`studentid`,`firstname`,`lastname`,`email`,`loginpassword`,`studentstatus`) values( '".$stid."', '".$pfname."', '".$plname."','".$pemail."','".$randomString."', '".$status."')");
 $query=$db->query("insert into Applications (`applicationid`,`aoi`,`studentid`,`dsought`,`pd`,`pgpa`,`workex`,`desdate`,`essayanswer`,`astatus`,`pdu`,`pd2`,`pdu2`,`pgpa2`,`pmj`,`pmj2`,`bday`) values( '".$apid."', '".$paoi."', '".$stid."', '".$pds."', '".$ppd."','".$ppgpa."','".$pwex."', '".$pdas."','".$pessay."', '".$apstatus."', '".$ppu."', '".$ppd2."', '".$ppu2."', '".$ppgpa2."', '".$pmd."','".$pmd2."','".$pbday."')");
 $query=$db->query("insert into Transcript (`studentid`,`gre`,`greverbal`,`greana`,`grequan`,`tofel`) values( '".$stid."', '".$pgs."', '".$pvb."', '".$pana."', '".$pqua."','".$ptf."')");
-$query=$db->query("insert into Recommendation (`studentid`,`Authoremail`,`Affiliation`) values( '".$stid."','".$email0."','".$af3."')");
-$query=$db->query("insert into Recommendation (`studentid`,`Authoremail`,`Affiliation`) values( '".$stid."','".$email1."','".$af4."')");
-$query=$db->query("insert into Recommendation (`studentid`,`Authoremail`,`Affiliation`) values( '".$stid."','".$email2."','".$af5."')");
+$query=$db->query("insert into Recommendation (`studentid`,`Authoremail`,`Affiliation`,`Authorname`,`Authortitle`) values( '".$stid."','".$email0."','".$af3."','".$recname1."','".$title1."')");
+$query=$db->query("insert into Recommendation (`studentid`,`Authoremail`,`Affiliation`,`Authorname`,`Authortitle`) values( '".$stid."','".$email1."','".$af4."','".$recname2."','".$title2."')");
+$query=$db->query("insert into Recommendation (`studentid`,`Authoremail`,`Affiliation`,`Authorname`,`Authortitle`) values( '".$stid."','".$email2."','".$af5."','".$recname3."','".$title3."')");
 
 
 
@@ -339,14 +345,17 @@ Area of Interest <input type="text" name="aoi"  id="aoi"><br>
 		<span class="auto-style2">
   <p class="auto-style3">Recommendation and Essay</p>
 		</span><br /><br />
+		Name of source of Recommendation 1 <input style="margin: 5px 40px 5px 37px" type="text" name="recname1" id="recname1">
+            Title of source of Recommendation 1 <input type="text" name="title1" id="title1"><br><br>
 		Email/Phone of source of Recommendation 1 <input type="text" name="email0" id="email0"> 
-		Affiliation of Recommendation 1 
-		<input type="text" name="af3" id="af3"><br>
-		<br>Email/Phone of source of Recommendation 2 
-		<input type="text" name="email1" id="email1"> Affiliation of 
-		Recommendation 2 
-		<input type="text" name="af4" id="af4"><br><br>Email/Phone of 
-		source of Recommendation 3 <input type="text" name="email2" id="email2"> 
+		Affiliation of Recommendation 1  <input type="text" name="af3" id="af3"><br><br>
+		Name of source of Recommendation 2 <input style="margin: 5px 40px 5px 37px" type="text" name="recname2" id="recname2">
+		Title of source of Recommendation 2 <input type="text" name="title2" id="title2"><br><br>
+		Email/Phone of source of Recommendation 2  <input type="text" name="email1" id="email1"> 
+		Affiliation of Recommendation 2  <input type="text" name="af4" id="af4"><br><br>
+		Name of source of Recommendation 3 <input style="margin: 5px 40px 5px 37px" type="text" name="recname3" id="recname3">
+            Title of source of Recommendation 3 <input type="text" name="title3" id="title3"><br><br>
+		Email/Phone of  source of Recommendation 3 <input type="text" name="email2" id="email2"> 
 		Affiliation of Recommendation 3 
 		<input type="text" name="af5" id="af5"><br><br><br>  Essay: Why do you choose GW? <br /><br />
 content: <input type="text" name="essay" id="essay" style="height: 247px; width: 618px"> <br /><br />
