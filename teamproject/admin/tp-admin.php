@@ -114,6 +114,7 @@ function show_user_links() {
 		break;
 
 	}
+	echo '<li><a href="' . SITE_ABS . 'views/user_management/user_edit.php">Manage Profile</a>';
 	echo '</ul>';
 
 }
@@ -138,6 +139,7 @@ function show_user_top_links() {
 		break;
 
 	}
+	echo '<li><a href="' . SITE_ABS . 'views/user_management/user_edit.php">Manage Profile</a>';
 	echo '<li><a href="' . SITE_ABS . '/index.php?logout">Logout</a>';
 	echo '</ul>';
 }

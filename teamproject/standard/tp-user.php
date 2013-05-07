@@ -80,5 +80,44 @@ function set_user_meta( $user_id, $meta_key, $meta_val ) {
 	$tp_query->query( $query );
 }
 
+function get_user_address( $user_id ) {
+	global $tp_query;
+
+	$query = "SELECT * FROM tp_address WHERE user_id = $user_id";
+	return array_shift( $tp_query->query( $query ) );
+}
+
+function update_address() {
+	global $tp_user, $tp_query;
+
+	$user_id = $tp_user->uid;
+	$street_1 = $_POST['street1'];
+	$street_2 = $_POST['street2'];
+	$state_prov = $_POST['state_prov'];
+	$zipcode = $_POST['zipcode'];
+	$city = $_POST['city'];
+
+	$query = "SELECT address_id FROM tp_users WHERE uid = $user_id";
+
+	$user_address = $tp_query->query( $query );
+	$user_address = array_shift( $user_address );
+	if( is_null( $user_address['address_id'] ) ) {
+		$query = "INSERT INTO tp_address(user_id, street1, street2, state_prov, zipcode, city) VALUES ($user_id, $street_1, $street_2, $state_prov, $zipcode, $city);";
+		$tp_query->query( $query );
+
+		$query = "SELECT aid FROM tp_address WHERE user_id = $user_id;";
+
+		$addr_id = $tp_query->query( $query );
+		$addr_id = array_shift( $addr_id );
+		$addr_id = $addr_id['aid'];
+
+		$query = "UPDATE tp_users SET address_id = $addr_id WHERE uid = $user_id;";
+		$tp_query->query( $query );
+	} else {
+		$query = "UPDATE tp_address SET street1 = '$street_1', street2 = '$street_2', state_prov = '$state_prov', zipcode = '$zipcode', city = '$city' WHERE user_id = $user_id;";
+		$tp_query->query( $query );
+	}
+}
+
 if( isset( $_SESSION['user_login'] ) )
 	create_user( $_SESSION['user_login'] );
