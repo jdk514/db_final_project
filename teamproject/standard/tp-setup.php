@@ -140,18 +140,17 @@ class TP_Setup {
     	),
 
     	'Recommendation' => array(
-			'Recid int(8) NOT NULL auto_increment,',
+			'Recid int(8) PRIMARY KEY,',
 			'studentid int(8) default NULL,',
-			'Authorname varchar(64) NOT NULL default \'\',',
+			'Authorname varchar(64) NOT NULL default "",',
 			'Authortitle varchar(30) default NULL,',
-			'Authoremail varchar(64) NOT NULL default \'\',',
+			'Authoremail varchar(64) NOT NULL default "",',
 			'Content text NOT NULL,',
 			'Affiliation varchar(200) default NULL,',
 			'rate varchar(250) default NULL,',
-			'PRIMARY KEY  ("Recid"),',
-			'KEY "studentid" ("studentid")'
+			'FOREIGN KEY (studentid) REFERENCES Student(studentid)',
 		),
-
+    	
 		'Transcript' => array(
 			'transid int(8) Primary Key,',
 			'studentid int(8),',
@@ -161,19 +160,18 @@ class TP_Setup {
 			'greana int (4),',
 			'grequan int (4),',
 			'tofel int (3),',
-			'FOREIGN KEY (studentid) references Student'
+			'FOREIGN KEY (studentid) references Student(studentid)'
 		),
-
+		
 		'app_to_reg' => array(
-			'studentid int(8) NOT NULL default "0",',
-		  	'firstname varchar(64) NOT NULL default "",',
-		  	'lastname varchar(64) NOT NULL default "",',
-		  	'email varchar(50) NOT NULL default "",',
-		  	'loginpassword varchar(50) NOT NULL default "",',
-		  	'dsought varchar(10) NOT NULL default ""',
-		  	'PRIMARY KEY ("studentid")'
+			'studentid int(8) Primary Key,',
+		  	'firstname varchar(64) NOT NULL,',
+		  	'lastname varchar(64) NOT NULL,',
+		  	'email varchar(50) NOT NULL,',
+		  	'loginpassword varchar(50) NOT NULL,',
+		  	'dsought varchar(10) NOT NULL',
 		),
-
+		
 		'GA' => array(
 			'gsid int (8) Primary Key,',
 			'loginpassword Varchar (50) not null'
@@ -181,11 +179,11 @@ class TP_Setup {
 
 		'Reviewers' => array(
 			'reviewerid int (8) Primary Key,',
-			'loginpassword Varchar (50) not null,'
+			'loginpassword Varchar (50) not null'
 		),
 
 		'Applications' => array(
-  			'applicationid int(8) NOT NULL default "0",',
+  			'applicationid int(8) PRIMARY KEY,',
 			'aoi varchar(250) default NULL,',
 			'studentid int(8) default NULL,',
 			'dsought varchar(250) default NULL,',
@@ -205,8 +203,7 @@ class TP_Setup {
 			'bday varchar(11) default NULL,',
 			'reviewcom varchar(250) default NULL,',
 			'reviewsug varchar(250) default NULL,',
-			'PRIMARY KEY ("applicationid"),',
-			'KEY "studentid" ("studentid"),'
+			'FOREIGN KEY (studentid) REFERENCES Student(studentid)'
 		)
 	);
 
